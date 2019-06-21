@@ -12,13 +12,13 @@ An agent can be trained with `run_evo.py`. The most important command line argum
 Progress can be visualized using `run_plot.py` and gameplay may be observed using `run_enjoy.py` or `run_gif.py`.
 As an example, here is an agent that has been trained for 8.13e7 frames on the game Frostbite.
 
-![Frostbite Gameplay](results/frostbite/frostbite-gameplay.png)
+![Frostbite Gameplay](https://github.com/jprellberg/genetic-algorithm-rl/blob/master/results/frostbite/frostbite-gameplay.gif)
 
 The following plot shows the evolution of episode rewards (averaged over 30 trials) of the population's
 elite agent. Since the fitness evaluation is highly noisy the elite is sometimes replaced by an agent
 with apparentely higher fitness that is actually worse.
  
-![Frostbite Plots](results/frostbite/frostbite-rewards.png)
+![Frostbite Plots](https://github.com/jprellberg/genetic-algorithm-rl/blob/master/results/frostbite/forstbite-rewards.png)
 
 The implementation is multiprocessing-based but not distributed and therefore can only be run on a single host.
 GPUs can be leveraged but be aware that you may run into host memory issues given that each worker loads the CUDA
