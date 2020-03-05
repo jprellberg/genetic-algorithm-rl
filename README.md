@@ -1,24 +1,21 @@
 # Playing Atari with Genetic Algorithms
 
 This repository is a reproduction of the ideas presented in [1] for learning to play Atari games using a genetic
-algorithm.
+algorithm. The algorithm is extended with a re-evaluation procedure to counteract the strong fitness noise stemming
+from non-determinism in the Atari environment.
 
-An agent can be trained with `run_evo.py`. The most important command line arguments are:
+An agent can be trained with `run_train.py` and results can be visualized with `run_plot.py`. Use `run_eval.py` to
+perform further evaluation of an agent or to observe the gameplay.
 
-* `--env <Atari gym environment name>`
-* `--workers <number of parallel processes>`
-* `--device <cpu or cuda>`
+As an example, here is an agent that has been trained for 1e9 frames on the game Frostbite using the proposed
+extended algorithm with re-evaluations and new hyperparameters.
 
-Progress can be visualized using `run_plot.py` and gameplay may be observed using `run_enjoy.py` or `run_gif.py`.
-As an example, here is an agent that has been trained for 8.13e7 frames on the game Frostbite.
+![Frostbite Gameplay](https://github.com/jprellberg/genetic-algorithm-rl/blob/master/results_frostbite.gif)
 
-![Frostbite Gameplay](https://github.com/jprellberg/genetic-algorithm-rl/blob/master/results/frostbite/frostbite-gameplay.gif)
-
-The following plot shows the evolution of episode rewards (averaged over 30 trials) of the population's
-elite agent. Since the fitness evaluation is highly noisy the elite is sometimes replaced by an agent
-with apparentely higher fitness that is actually worse.
+The following plot shows the evolution of episode rewards of the population's elite agent. It compares the baseline
+algorithm from [1] to the proposed algorithm.
  
-![Frostbite Plots](https://github.com/jprellberg/genetic-algorithm-rl/blob/master/results/frostbite/forstbite-rewards.png)
+![Frostbite Plots](https://github.com/jprellberg/genetic-algorithm-rl/blob/master/results.png)
 
 The implementation is multiprocessing-based but not distributed and therefore can only be run on a single host.
 GPUs can be leveraged but be aware that you may run into host memory issues given that each worker loads the CUDA

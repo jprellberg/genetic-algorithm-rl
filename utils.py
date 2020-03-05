@@ -1,13 +1,18 @@
 import datetime
 import logging
-import os
-import pathlib
+import pickle
 import random
 import string
 import sys
 
 import torch
+import torch.nn as nn
 import numpy
+
+
+class Flatten(nn.Module):
+    def forward(self, x):
+        return x.view(x.size(0), -1)
 
 
 def set_seeds(seed):
@@ -24,14 +29,6 @@ def count_parameters(model, grad_only=True):
 def unique_string():
     return '{}.{}'.format(datetime.datetime.now().strftime('%Y%m%dT%H%M%SZ'),
                           ''.join(random.choice(string.ascii_uppercase) for _ in range(4)))
-
-
-def create_unique_dir(root=None):
-    filename = unique_string()
-    if root is not None:
-        filename = os.path.join(root, filename)
-    pathlib.Path(filename).mkdir(parents=True, exist_ok=True)
-    return filename
 
 
 def get_logger(output_file='log.txt'):
@@ -54,3 +51,13 @@ def get_logger(output_file='log.txt'):
         logger.addHandler(ch)
 
     return logger
+
+
+def pickle_save(obj, file):
+    with open(file, 'wb') as f:
+        pickle.dump(obj, f)
+
+
+def pickle_load(file):
+    with open(file, 'rb') as f:
+        return pickle.load(f)
